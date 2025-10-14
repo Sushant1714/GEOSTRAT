@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy 17 Divya 🎉</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      background: linear-gradient(135deg, #ffb6c1, #ff69b4, #ffa07a);
+      color: white;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      user-select: none;
+    }
+
+    h1 {
+      margin-top: 70px;
+      font-size: 3em;
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #subtext {
+      font-size: 1.5em;
+      margin-top: 10px;
+      opacity: 0.9;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    #question {
+      font-size: 1.4em;
+      margin-top: 40px;
+      font-weight: 500;
+      animation: fadeIn 2.5s ease-in-out;
+    }
+
+    .button-container {
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        transform: translateX(-50%);
+        width: 250px;
+        height: 60px;
+    }
+
+    button {
+      font-size: 1.2em;
+      padding: 12px 30px;
+      margin: 15px;
+      border: none;
+      border-radius: 14px;
+      background-color: white;
+      color: #ff1493;
+      cursor: pointer;
+      position: absolute;
+      transition: all 0.25s ease;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      left: 0;
+    }
+
+    #yesBtn {
+      right: 0;
+    }
+
+    #message {
+      margin-top: 60px;
+      font-size: 1.8em;
+      animation: fadeIn 1s ease-in-out;
+      padding: 0 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Confetti animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: white;
+      animation: fall 3s linear infinite;
+      border-radius: 50%;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Hie Divya! 🎉</h1>
+  <div id="subtext">Happy 17, keep exploring 💫</div>
+  <div id="question">If your height is 5.5ft or above, press "Yes" — for revealing the gift 🎁</div>
+  
+  <div class="button-container">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+  </div>
+
+
+  <div id="message"></div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const question = document.getElementById("question");
+    const subtext = document.getElementById("subtext");
+    const message = document.getElementById("message");
+    const buttonContainer = document.querySelector(".button-container");
+    let attempts = 0;
+
+    yesBtn.addEventListener("mouseover", () => {
+      attempts++;
+      if (attempts < 10) {
+        // Make the container jump around instead of just the button
+        const randomX = Math.random() * (window.innerWidth - 250);
+        const randomY = Math.random() * (window.innerHeight - 100);
+        
+        // Ensure it doesn't go off-screen or overlap the top text too much
+        const yPosition = Math.max(300, randomY);
+
+        buttonContainer.style.position = 'absolute';
+        buttonContainer.style.left = `${randomX}px`;
+        buttonContainer.style.top = `${yPosition}px`;
+      } else {
+        message.innerText = "NO p krde tu choti h 😜";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+        question.style.display = "none";
+        subtext.style.display = "none";
+        createConfetti();
+      }
+    });
+    
+    yesBtn.addEventListener("click", () => {
+        // In case the user manages to click it
+        message.innerText = "Wow, you got it! Happy Birthday!! 🎂";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+        question.style.display = "none";
+        subtext.style.display = "none";
+        createConfetti();
+    });
+
+    noBtn.addEventListener("click", () => {
+      message.innerText = "ja bnd krde website and btw happy birthday!! divya 🎂";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+      question.style.display = "none";
+      subtext.style.display = "none";
+      createConfetti();
+    });
+
+    function createConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = randomColor();
+        confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    }
+
+    function randomColor() {
+      const colors = ["#ff1493", "#ff69b4", "#ffa07a", "#ffb6c1", "#fff"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+</body>
+</html>
